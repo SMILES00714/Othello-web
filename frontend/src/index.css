@@ -23,9 +23,11 @@ a:hover {
 }
 
 body {
+  /* background-color: rgb(0, 0, 48); */
+  background-color: aliceblue;
   margin: 0;
   display: flex;
-  place-items: center;
+  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }

@@ -24,7 +24,9 @@ router.post('/login', async (req: Request, res: Response) => {
         }
 
         const token = jwt.sign({ id: user._id }, 'secretKey', { expiresIn: '1h' }); // Use a more secure secret key
-        res.status(200).send({ message: 'Logged in successfully', token });
+        const allUsers = await User.find();
+
+        res.status(200).send({ message: 'Logged in successfully', token, users: allUsers });
     } catch (error) {
         res.status(400).send(error);
     }

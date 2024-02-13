@@ -1,14 +1,22 @@
-// import React from 'react';
-import Register from './components/Register';
+import Header from './components/Header';
 import Login from './components/Login';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './App.css'
+import Home from './components/Home';
+import Register from './components/Register';
+import Dashboard from './components/Dashboard';
 
 function App() {
   return (
-    <div>
-      <h1>Authentication</h1>
-      <Register />
-      <Login />
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path='/' Component={Home} />
+        <Route path='/login' Component={Login} />
+        <Route path='/signup' Component={Register} />
+        <Route path='/dash' Component={Dashboard} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

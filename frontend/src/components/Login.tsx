@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  let navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8080/api/auth/login', { username, password });
       console.log('Login successful:', response.data);
-      // Save the received token, perhaps in localStorage, then redirect or display success
+      sessionStorage.setItem('token', response.data.token);
+      localStorage.setItem('users', JSON.stringify(response.data.users));
+      navigate('/dash')
     } catch (error) {
       console.error('Login error:', error);
       // Handle error, display error message to user
@@ -18,7 +22,7 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='login'>
       <div>
         <label>Username:</label>
         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
