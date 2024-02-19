@@ -7,10 +7,15 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost:8080/api',
         changeOrigin: true,
         rewrite: (path: string) => path.replace(/^\/api/, '')
       },
     }
-  }
+  },
+  // resolve: {
+  //   alias: {
+  //     'redux-thunk': 'redux-thunk/dist/redux-thunk.cjs.js'
+  //   }
+  // }
 })

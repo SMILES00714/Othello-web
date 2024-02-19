@@ -1,8 +1,9 @@
+import { Container } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
     return (
-        <div className="home">
+        <Container>
             <div>
                 <Link to="/signup">
                     Sign Up
@@ -11,7 +12,7 @@ const Home = () => {
                     Log In
                 </Link>
             </div>
-        </div>
+        </Container>
     );
 }
 

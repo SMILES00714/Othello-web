@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/actions/auth.action';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  let navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/login', { username, password });
-      console.log('Login successful:', response.data);
-      sessionStorage.setItem('token', response.data.token);
-      localStorage.setItem('users', JSON.stringify(response.data.users));
-      navigate('/dash')
+      const url = await dispatch(login(name, password));
+      navigate(url);
     } catch (error) {
       console.error('Login error:', error);
       // Handle error, display error message to user
@@ -25,7 +24,7 @@ const Login = () => {
     <form onSubmit={handleSubmit} className='login'>
       <div>
         <label>Username:</label>
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
       </div>
       <div>
         <label>Password:</label>
